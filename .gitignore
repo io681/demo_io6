@@ -1,3 +1,4 @@
 .gradle
 .idea
 build
+src/main/java/ru/io6/demo/configSecret/
