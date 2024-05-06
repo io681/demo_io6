@@ -1,25 +1,27 @@
 package ru.io6.demo.config;
 
 import io.netty.channel.ChannelOption;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.netty.http.client.HttpClient;
-import ru.io6.demo.configSecret.SecretConfig;
-
-import static ru.io6.demo.configSecret.SecretConfig.TOKEN_TNK_READ;
+import ru.io6.demo.component.SecretConfig;
 
 @Configuration
 public class WebClientConfig {
+    @Autowired
+    private SecretConfig secretConfig;
     @Bean
     public WebClient createWebCustomerClient() {
         HttpClient httpClient = HttpClient.create()
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 3000);
 
         return WebClient.builder()
-                .baseUrl(SecretConfig.BASE_URL)
-                .defaultHeader("Authorization", "Bearer " + TOKEN_TNK_READ)
+//                .baseUrl("https://sandbox-invest-public-api.tinkoff.ru/rest")
+                .baseUrl(secretConfig.getBaseUrl())
+                .defaultHeader("Authorization", "Bearer " + secretConfig.getTokenTnkRead())
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
                 .build();
     }
