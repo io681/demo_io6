@@ -10,5 +10,5 @@ spring:
         settings:
           web-allow-others: true
 conf:
-  base-url: ${BASE_URL}
+  base-url: ${BASE_TEST_URL}
   token-tnk-read: ${TOKEN_TNK_READ}

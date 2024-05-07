@@ -3,8 +3,8 @@ package ru.io6.demo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import ru.io6.demo.dto.Instrument.FindInstrumentsDTO;
-import ru.io6.demo.dto.Instrument.InstrumentDTO;
+import ru.io6.demo.dto.instrument.FindInstrumentsDTO;
+import ru.io6.demo.dto.instrument.InstrumentDTO;
 import ru.io6.demo.service.InstrumentsService;
 
 import java.util.ArrayList;

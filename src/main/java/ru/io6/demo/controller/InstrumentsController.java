@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
-import ru.io6.demo.dto.Instrument.FindInstrumentsDTO;
+import ru.io6.demo.dto.instrument.FindInstrumentsDTO;
 import ru.io6.demo.service.InstrumentsService;
 
 @RestController

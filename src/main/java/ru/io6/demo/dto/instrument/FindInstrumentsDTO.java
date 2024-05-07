@@ -1,4 +1,4 @@
-package ru.io6.demo.dto.Instrument;
+package ru.io6.demo.dto.instrument;
 
 import lombok.Getter;
 import lombok.Setter;
