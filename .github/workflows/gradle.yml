@@ -12,10 +12,12 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+env:
+  BASE_TEST_URL: ${{secrets.BASE_TEST_URL}}
+  TOKEN_TNK_READ: ${{secrets.TOKEN_TNK_READ}}
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     permissions:
       contents: read
