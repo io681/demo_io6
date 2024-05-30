@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: ${JDBC_DATABASE_URL}
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
+conf:
+  base-url: ${BASE_TEST_URL}
+  token-tnk-read: ${TOKEN_TNK_READ}
