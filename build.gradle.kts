@@ -28,6 +28,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	runtimeOnly("com.h2database:h2:2.2.224")
 	implementation("org.postgresql:postgresql:42.6.0")
+	implementation("net.javacrumbs.json-unit:json-unit-assertj:3.2.2")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation(platform("org.junit:junit-bom:5.10.1"))
