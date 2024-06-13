@@ -14,13 +14,13 @@ public class InstrumentsService {
     private WebClientConfig webClient;
 
     public FindInstrumentsDTO showFindInstrument(String queryText) {
-        RequestFindInstrumentDTO requestFindInstrumentDTO = new RequestFindInstrumentDTO();
-        requestFindInstrumentDTO.setQuery(queryText);
+        RequestFindInstrumentDTO dto = new RequestFindInstrumentDTO();
+        dto.setQuery(queryText);
 
         return webClient.createWebCustomerClient()
                 .post()
                 .uri(URI_INSTRUMENTS_SERVICE + "/FindInstrument")
-                .body(Mono.just(requestFindInstrumentDTO), RequestFindInstrumentDTO.class)
+                .body(Mono.just(dto), RequestFindInstrumentDTO.class)
                 .retrieve()
                 .bodyToMono(FindInstrumentsDTO.class)
                 .block();

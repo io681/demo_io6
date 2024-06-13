@@ -17,14 +17,14 @@ public class MarketDataService {
     private WebClientConfig webClient;
 
     public LastPricesDTO showLastPrices(List<String> instrumentIds) {
-        RequestGetLastPricesDTO requestGetLastPricesDTO = new RequestGetLastPricesDTO();
-        requestGetLastPricesDTO.setInstrumentIds(new ArrayList<>());
-        requestGetLastPricesDTO.getInstrumentIds().addAll(instrumentIds);
+        RequestGetLastPricesDTO dto = new RequestGetLastPricesDTO();
+        dto.setInstrumentIds(new ArrayList<>());
+        dto.getInstrumentIds().addAll(instrumentIds);
 
         return webClient.createWebCustomerClient()
                 .post()
                 .uri(URI_MARKET_DATA_SERVICE + "/GetLastPrices")
-                .body(Mono.just(requestGetLastPricesDTO), RequestGetLastPricesDTO.class)
+                .body(Mono.just(dto), RequestGetLastPricesDTO.class)
                 .retrieve()
                 .bodyToMono(LastPricesDTO.class)
                 .block();
