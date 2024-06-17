@@ -1,7 +1,8 @@
-package ru.io6.demo.dto.marketData;
+package ru.io6.demo.dto.marketData.lastPrice;
 
 import lombok.Getter;
 import lombok.Setter;
+import ru.io6.demo.dto.marketData.PriceDTO;
 
 @Getter
 @Setter

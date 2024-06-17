@@ -10,8 +10,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import ru.io6.demo.dto.marketData.RequestCandlesDTO;
-import ru.io6.demo.dto.marketData.RequestGetLastPricesDTO;
+import ru.io6.demo.dto.marketData.candles.RequestCandlesDTO;
+import ru.io6.demo.dto.marketData.lastPrice.RequestGetLastPricesDTO;
+import ru.io6.demo.dto.marketData.orderBook.RequestOrderBookDTO;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -66,13 +67,35 @@ public class MarketDataControllerTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-
         var body = result.getResponse().getContentAsString();
-
         assertThatJson(body).and(
                 v -> v.node("candles.[8].open.units").asNumber().isBetween(new BigDecimal(90), new BigDecimal(160))
         );
+    }
 
+    @Test
+    public void testShowOrderBook() throws Exception {
+        RequestOrderBookDTO dto = new RequestOrderBookDTO();
+        dto.setInstrumentId("962e2a95-02a9-4171-abd7-aa198dbe643a");
+
+        MockHttpServletRequestBuilder request = post("/api/marketData/getOrderBook")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(om.writeValueAsString(dto));
+
+        MvcResult result = mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andReturn();
+
+        var body = result.getResponse().getContentAsString();
+        assertThatJson(body).and(
+                v -> v.node("instrumentUid").isEqualTo("962e2a95-02a9-4171-abd7-aa198dbe643a")
+        );
+
+        assertThatJson(body).and(
+                v -> v.node("bids").isArray().hasSize(50)
+        ).and(
+                v -> v.node("asks").isArray().hasSize(50)
+        );
     }
 }
 

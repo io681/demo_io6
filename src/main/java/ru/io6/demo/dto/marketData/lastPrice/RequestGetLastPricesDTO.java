@@ -1,4 +1,4 @@
-package ru.io6.demo.dto.marketData;
+package ru.io6.demo.dto.marketData.lastPrice;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

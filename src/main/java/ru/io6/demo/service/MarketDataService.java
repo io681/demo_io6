@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import ru.io6.demo.config.WebClientConfig;
-import ru.io6.demo.dto.marketData.CandlesDTO;
-import ru.io6.demo.dto.marketData.LastPricesDTO;
-import ru.io6.demo.dto.marketData.RequestCandlesDTO;
-import ru.io6.demo.dto.marketData.RequestGetLastPricesDTO;
+import ru.io6.demo.dto.marketData.candles.CandlesDTO;
+import ru.io6.demo.dto.marketData.lastPrice.LastPricesDTO;
+import ru.io6.demo.dto.marketData.candles.RequestCandlesDTO;
+import ru.io6.demo.dto.marketData.lastPrice.RequestGetLastPricesDTO;
+import ru.io6.demo.dto.marketData.orderBook.OrderBookDTO;
+import ru.io6.demo.dto.marketData.orderBook.RequestOrderBookDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +46,19 @@ public class MarketDataService {
                 .body(Mono.just(dto), RequestCandlesDTO.class)
                 .retrieve()
                 .bodyToMono(CandlesDTO.class)
+                .block();
+    }
+
+    public OrderBookDTO showOrderBook(String instrumentId) {
+        RequestOrderBookDTO dto = new RequestOrderBookDTO();
+        dto.setInstrumentId(instrumentId);
+
+        return webClient.createWebCustomerClient()
+                .post()
+                .uri(URI_MARKET_DATA_SERVICE + "/GetOrderBook")
+                .body(Mono.just(dto), RequestOrderBookDTO.class)
+                .retrieve()
+                .bodyToMono(OrderBookDTO.class)
                 .block();
     }
 }
