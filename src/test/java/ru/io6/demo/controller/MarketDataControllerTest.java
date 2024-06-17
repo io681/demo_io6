@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -95,6 +96,24 @@ public class MarketDataControllerTest {
                 v -> v.node("bids").isArray().hasSize(50)
         ).and(
                 v -> v.node("asks").isArray().hasSize(50)
+        );
+    }
+
+    @Test
+    public void testShowTradingStatus() throws Exception {
+        MockHttpServletRequestBuilder request
+                = get("/api/marketData/getTradingStatus/962e2a95-02a9-4171-abd7-aa198dbe643a");
+        MvcResult result = mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andReturn();
+
+        var body = result.getResponse().getContentAsString();
+        assertThatJson(body).and(
+                v -> v.node("instrumentUid").isEqualTo("962e2a95-02a9-4171-abd7-aa198dbe643a")
+        );
+
+        assertThatJson(body).and(
+                v -> v.node("apiTradeAvailableFlag").isEqualTo(true)
         );
     }
 }

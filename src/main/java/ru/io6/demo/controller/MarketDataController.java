@@ -5,12 +5,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import ru.io6.demo.dto.marketData.candles.CandlesDTO;
 import ru.io6.demo.dto.marketData.lastPrice.LastPricesDTO;
 import ru.io6.demo.dto.marketData.candles.RequestCandlesDTO;
 import ru.io6.demo.dto.marketData.lastPrice.RequestGetLastPricesDTO;
 import ru.io6.demo.dto.marketData.orderBook.OrderBookDTO;
 import ru.io6.demo.dto.marketData.orderBook.RequestOrderBookDTO;
+import ru.io6.demo.dto.marketData.tradingStatus.TradingStatusDTO;
 import ru.io6.demo.service.MarketDataService;
 
 
@@ -33,5 +36,10 @@ public class MarketDataController {
     @PostMapping(path = "/getOrderBook")
     public OrderBookDTO showOrderBook(@RequestBody RequestOrderBookDTO dto) {
         return marketDataService.showOrderBook(dto.getInstrumentId());
+    }
+
+    @GetMapping(path = "/getTradingStatus/{instrumentId}")
+    public TradingStatusDTO showOrderBook(@PathVariable String instrumentId) {
+        return marketDataService.showTradingStatus(instrumentId);
     }
 }

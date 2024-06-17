@@ -10,6 +10,8 @@ import ru.io6.demo.dto.marketData.candles.RequestCandlesDTO;
 import ru.io6.demo.dto.marketData.lastPrice.RequestGetLastPricesDTO;
 import ru.io6.demo.dto.marketData.orderBook.OrderBookDTO;
 import ru.io6.demo.dto.marketData.orderBook.RequestOrderBookDTO;
+import ru.io6.demo.dto.marketData.tradingStatus.RequestTradingStatusDTO;
+import ru.io6.demo.dto.marketData.tradingStatus.TradingStatusDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +61,19 @@ public class MarketDataService {
                 .body(Mono.just(dto), RequestOrderBookDTO.class)
                 .retrieve()
                 .bodyToMono(OrderBookDTO.class)
+                .block();
+    }
+
+    public TradingStatusDTO showTradingStatus(String instrumentId) {
+        RequestTradingStatusDTO dto = new RequestTradingStatusDTO();
+        dto.setInstrumentId(instrumentId);
+
+        return webClient.createWebCustomerClient()
+                .post()
+                .uri(URI_MARKET_DATA_SERVICE + "/GetTradingStatus")
+                .body(Mono.just(dto), RequestTradingStatusDTO.class)
+                .retrieve()
+                .bodyToMono(TradingStatusDTO.class)
                 .block();
     }
 }
